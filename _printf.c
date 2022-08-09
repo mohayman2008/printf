@@ -81,7 +81,7 @@ int print_special(const char *format, unsigned int *idx, va_list al)
 	unsigned int i = *idx;
 	char *str;
 
-        if (format[i] == '%')
+	if (format[i] == '%')
 	{
 		i++;
 
