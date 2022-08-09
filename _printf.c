@@ -38,6 +38,35 @@ int print_string(const char *str)
 }
 
 /**
+ * print_int - prints an integer to stdout
+ * @num: integer
+ *
+ * Return: number of printed characters or -1 on error
+ */
+int print_int(int num)
+{
+	int sum;
+
+	if (num < 0)
+	{
+		_putchar('-');
+		sum = 2;
+
+		if (num / -10 > 0)
+			sum += print_int(num / -10);
+		_putchar((num % 10) * -1 + '0');
+	}
+	else
+	{
+		sum = 1;
+		if (num / 10 > 0)
+			sum += print_int(num / 10);
+		_putchar(num % 10 + '0');
+	}
+	return (sum);
+}
+
+/**
  * print_special - print special character or formatted data in format string
  *	and sets the index into the first character after the special substring
  * @format: format string
@@ -52,13 +81,7 @@ int print_special(const char *format, unsigned int *idx, va_list al)
 	unsigned int i = *idx;
 	char *str;
 
-	if (format[i] == '\\')
-	{
-		_putchar(format[i + 1]);
-		(*idx) += 2;
-		sum = 1;
-	}
-	else if (format[i] == '%')
+        if (format[i] == '%')
 	{
 		i++;
 
@@ -82,6 +105,11 @@ int print_special(const char *format, unsigned int *idx, va_list al)
 			if (sum < 0)
 				sum = -1;
 		}
+		else if (format[i] == 'd' || format[i] == 'i')
+		{
+			sum = print_int(va_arg(al, int));
+			(*idx) = ++i;
+		}
 	}
 	return (sum);
 }
@@ -94,7 +122,7 @@ int print_special(const char *format, unsigned int *idx, va_list al)
  */
 int _printf(const char *format, ...)
 {
-	int sum = 0, special;
+	int sum = 0;
 	unsigned int i = 0;
 	va_list al;
 
@@ -107,20 +135,13 @@ int _printf(const char *format, ...)
 
 	while (format[i])
 	{
-		special = check_char(format[i], "%");
-		if (special == 0)
+		if (format[i] == '%')
+			sum += print_special(format, &i, al);
+		else
 		{
 			_putchar(format[i]);
 			i++, sum++;
 		}
-		else if (special == -1)
-		{
-			sum = -1;
-			break;
-		}
-		else
-			sum += print_special(format, &i, al);
-
 	}
 	va_end(al);
 	return (sum);
