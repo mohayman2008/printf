@@ -122,7 +122,7 @@ int print_special(const char *format, unsigned int *idx, va_list al)
  */
 int _printf(const char *format, ...)
 {
-	int sum = 0;
+	int sum = 0, n_printed = 0;
 	unsigned int i = 0;
 	va_list al;
 
@@ -136,7 +136,11 @@ int _printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%')
-			sum += print_special(format, &i, al);
+		{
+			n_printed = print_special(format, &i, al);
+			if (n_printed > 0)
+				sum += n_printed;
+		}
 		else
 		{
 			_putchar(format[i]);
