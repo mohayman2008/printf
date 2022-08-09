@@ -85,7 +85,12 @@ int print_special(const char *format, unsigned int *idx, va_list al)
 	{
 		i++;
 
-		if (format[i] == '%')
+		if (!format[i])
+		{
+			(*idx) = ++i;
+			sum = -1;
+		}
+		else if (format[i] == '%')
 		{
 			_putchar(format[i]);
 			(*idx) = ++i;
@@ -128,7 +133,6 @@ int _printf(const char *format, ...)
 
 	if (!format)
 	{
-		va_end(al);
 		return (-1);
 	}
 	va_start(al, format);
@@ -138,8 +142,9 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			n_printed = print_special(format, &i, al);
-			if (n_printed > 0)
-				sum += n_printed;
+			if (n_printed < 0)
+				return (n_printed);
+			sum += n_printed;
 		}
 		else
 		{
