@@ -31,7 +31,7 @@ int print_string(const char *str)
 	int sum = 0, i = 0;
 
 	if (!str)
-		return (-1);
+		str = "(null)";
 	while (str[i])
 		_putchar(str[i++]), sum++;
 	return (sum);
