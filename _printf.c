@@ -38,35 +38,6 @@ int print_string(const char *str)
 }
 
 /**
- * print_int - prints an integer to stdout
- * @num: integer
- *
- * Return: number of printed characters or -1 on error
- */
-int print_int(int num)
-{
-	int sum;
-
-	if (num < 0)
-	{
-		_putchar('-');
-		sum = 2;
-
-		if (num / -10 > 0)
-			sum += print_int(num / -10);
-		_putchar((num % 10) * -1 + '0');
-	}
-	else
-	{
-		sum = 1;
-		if (num / 10 > 0)
-			sum += print_int(num / 10);
-		_putchar(num % 10 + '0');
-	}
-	return (sum);
-}
-
-/**
  * print_special - print special character or formatted data in format string
  *	and sets the index into the first character after the special substring
  * @format: format string
@@ -94,6 +65,8 @@ int print_special(const char *format, unsigned int *idx, va_list al)
 			sum = print_string(va_arg(al, char*)), (*idx) = ++i;
 		else if (format[i] == 'd' || format[i] == 'i')
 			sum = print_int(va_arg(al, int)), (*idx) = ++i;
+		else if (format[i] == 'b')
+			sum = print_bin(va_arg(al, unsigned int)), (*idx) = ++i;
 		else
 			_putchar(format[i - 1]), (*idx) = i, sum = 1;
 	}
