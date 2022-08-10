@@ -19,25 +19,6 @@ int check_char(const char c, const char *list)
 	return (0);
 }
 
-
-/**
- * print_string - prints a string to stdout
- * @buf: pointer to buffer struct
- * @str: string
- *
- * Return: number of printed characters or -1 on error
- */
-int print_string(buffer *buf, const char *str)
-{
-	int sum = 0, i = 0;
-
-	if (!str)
-		str = "(null)";
-	while (str[i])
-		ctobuf(buf, str[i++]), sum++;
-	return (sum);
-}
-
 /**
  * print_special - print special character or formatted data in format string
  *	and sets the index into the first character after the special substring
@@ -80,6 +61,8 @@ int print_special(buffer *buf, const char *format, unsigned int *idx,
 			sum = print_hex(buf, ui, (format[i] - 'X') / ('x' - 'X'));
 			(*idx) = ++i;
 		}
+		else if (format[i] == 'S')
+			sum = print_no_special(buf, va_arg(al, unsigned char*)), (*idx) = ++i;
 		else
 			ctobuf(buf, format[i - 1]), (*idx) = i, sum = 1;
 	}

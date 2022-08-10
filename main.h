@@ -24,6 +24,7 @@ int print_buffer(buffer *buf);
 int ctobuf(buffer *buf, char c);
 int check_char(const char c, const char *list);
 int print_string(buffer *buf, const char *str);
+int print_no_special(buffer *buf, const unsigned char *str);
 int print_int(buffer *buf, int num);
 int print_bin(buffer *buf, unsigned int num);
 int print_uint(buffer *buf, unsigned int num);
