@@ -63,6 +63,8 @@ int print_special(buffer *buf, const char *format, unsigned int *idx,
 		}
 		else if (format[i] == 'S')
 			sum = print_no_special(buf, va_arg(al, unsigned char*)), (*idx) = ++i;
+		else if (format[i] == 'p')
+			sum = print_ptr(buf, va_arg(al, void *)), (*idx) = ++i;
 		else
 			ctobuf(buf, format[i - 1]), (*idx) = i, sum = 1;
 	}

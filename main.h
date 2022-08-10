@@ -30,6 +30,8 @@ int print_bin(buffer *buf, unsigned int num);
 int print_uint(buffer *buf, unsigned int num);
 int print_oct(buffer *buf, unsigned int num);
 int print_hex(buffer *buf, unsigned int num, unsigned int lower);
+int print_lhex(buffer *buf, unsigned long int num, unsigned int lower);
+int print_ptr(buffer *buf, void *ptr);
 int print_special(buffer *buf, const char *format, unsigned int *idx,
 		va_list al);
 int _printf(const char *format, ...);
