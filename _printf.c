@@ -79,42 +79,23 @@ int print_special(const char *format, unsigned int *idx, va_list al)
 {
 	int sum = 0;
 	unsigned int i = *idx;
-	char *str;
 
 	if (format[i] == '%')
 	{
 		i++;
 
 		if (!format[i])
-		{
-			(*idx) = ++i;
-			sum = -1;
-		}
+			(*idx) = ++i, sum = -1;
 		else if (format[i] == '%')
-		{
-			_putchar(format[i]);
-			(*idx) = ++i;
-			sum = 1;
-		}
+			_putchar(format[i]), (*idx) = ++i, sum = 1;
 		else if (format[i] == 'c')
-		{
-			_putchar((unsigned char) va_arg(al, int));
-			(*idx) = ++i;
-			sum = 1;
-		}
+			_putchar(va_arg(al, int)), (*idx) = ++i, sum = 1;
 		else if (format[i] == 's')
-		{
-			str = va_arg(al, char*);
-			sum = print_string(str);
-			(*idx) = ++i;
-			if (sum < 0)
-				sum = -1;
-		}
+			sum = print_string(va_arg(al, char*)), (*idx) = ++i;
 		else if (format[i] == 'd' || format[i] == 'i')
-		{
-			sum = print_int(va_arg(al, int));
-			(*idx) = ++i;
-		}
+			sum = print_int(va_arg(al, int)), (*idx) = ++i;
+		else
+			_putchar(format[i - 1]), (*idx) = i, sum = 1;
 	}
 	return (sum);
 }
