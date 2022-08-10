@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- * print_bin - prints an integer to stdout
- * @num: integer
+ * print_bin - prints an unsigned integer to stdout in binary
+ * @num: unsigned integer
  *
- * Return: number of printed characters or -1 on error
+ * Return: number of printed characters
  */
 int print_bin(unsigned int num)
 {

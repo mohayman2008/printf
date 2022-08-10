@@ -49,7 +49,7 @@ int print_string(const char *str)
 int print_special(const char *format, unsigned int *idx, va_list al)
 {
 	int sum = 0;
-	unsigned int i = *idx;
+	unsigned int i = *idx, ui;
 
 	if (format[i] == '%')
 	{
@@ -67,6 +67,16 @@ int print_special(const char *format, unsigned int *idx, va_list al)
 			sum = print_int(va_arg(al, int)), (*idx) = ++i;
 		else if (format[i] == 'b')
 			sum = print_bin(va_arg(al, unsigned int)), (*idx) = ++i;
+		else if (format[i] == 'u')
+			sum = print_uint(va_arg(al, unsigned int)), (*idx) = ++i;
+		else if (format[i] == 'o')
+			sum = print_oct(va_arg(al, unsigned int)), (*idx) = ++i;
+		else if (format[i] == 'x' || format[i] == 'X')
+		{
+			ui = va_arg(al, unsigned int);
+			sum = print_hex(ui, (format[i] - 'X') / ('x' - 'X'));
+			(*idx) = ++i;
+		}
 		else
 			_putchar(format[i - 1]), (*idx) = i, sum = 1;
 	}

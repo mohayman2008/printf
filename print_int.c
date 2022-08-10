@@ -4,7 +4,7 @@
  * print_int - prints an integer to stdout
  * @num: integer
  *
- * Return: number of printed characters or -1 on error
+ * Return: number of printed characters
  */
 int print_int(int num)
 {
