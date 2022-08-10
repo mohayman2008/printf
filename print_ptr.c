@@ -12,6 +12,11 @@ int print_ptr(buffer *buf, void *ptr)
 	unsigned long int add = (unsigned long int) ptr;
 	int sum = 0;
 
+	if (!buf)
+		return (-1);
+	if (!ptr)
+		return (print_string(buf, "(nil)"));
+	
 	sum += print_string(buf, "0x");
 	sum += print_lhex(buf, add, 1);
 	return (sum);
